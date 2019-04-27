@@ -4,7 +4,8 @@
   "description": "Simplified Form handler for React",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copyReadme": "cp README.md packages/sources/react/README.md"
   },
   "keywords": [
     "Form",
