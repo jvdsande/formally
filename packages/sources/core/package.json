@@ -1,0 +1,33 @@
+{
+  "name": "@formally/core",
+  "version": "0.0.1",
+  "description": "Simplified Form handler for React",
+  "main": "index.js",
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ]
+    ]
+  },
+  "mixt": {
+    "builder": "pika-pack"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "Form",
+    "MobX",
+    "Validation"
+  ],
+  "author": "Jérémie van der Sande <jeremie.vandersande@gmail.com>",
+  "license": "ISC"
+}
