@@ -39,7 +39,7 @@ export class Handler {
 
   @observable state = {}
 
-  constructor(values = {}, definition = {}) {
+  constructor({ values, definition } = { values: {}, definition: {} }) {
     this.values = values
     this.definition = definition
   }
@@ -107,7 +107,7 @@ export class Handler {
     state.touched = true
     state.modified = false
 
-    this.onUpdate(this.values, this.computed, this.formatted)
+    this.onUpdate(toJS(this.values), this.computed, this.formatted)
   }
 
   @action.bound update(path, value) {
@@ -119,7 +119,7 @@ export class Handler {
 
     parent[final] = value
 
-    this.onUpdate(this.values, this.computed, this.formatted)
+    this.onUpdate(toJS(this.values), this.computed, this.formatted)
   }
 
   getValuesAndPath(_values, _state, _definition) {
@@ -208,21 +208,61 @@ export class Handler {
     let valid = true
 
     const checkValidity = (orig) => {
-      Object.keys(orig)
-        .forEach(k => {
-          if(orig[k].__error && Object.values(orig[k].__error).includes(true)) {
-            valid = false
-          }
+      if(orig) {
+        Object.keys(orig)
+          .forEach(k => {
+            if (orig[k] && orig[k].__error && Object.values(orig[k].__error).includes(true)) {
+              valid = false
+            }
 
-          if(typeof orig[k] === 'object') {
-            checkValidity(orig[k])
-          }
-        })
+            if (typeof orig[k] === 'object') {
+              checkValidity(orig[k])
+            }
+          })
+      }
     }
 
     checkValidity(computed)
 
     return valid
+  }
+
+  @computed get formState() {
+    const { computed } = this
+
+    const state = {
+      pristine: true,
+      touched: false,
+      scanned: true,
+    }
+
+    let count = 0
+
+    const checkState = (orig) => {
+      if(orig) {
+        Object.keys(orig)
+          .forEach(k => {
+            if(orig[k] && orig[k].__state) {
+              count += 1
+              state.pristine = state.pristine && orig[k].__state.pristine
+              state.touched = state.touched || orig[k].__state.touched
+              state.scanned = state.scanned && orig[k].__state.touched
+            }
+
+            if (typeof orig[k] === 'object') {
+              checkState(orig[k])
+            }
+          })
+      }
+    }
+
+    checkState(computed)
+
+    state.untouched = !state.touched
+    state.dirty = !state.pristine
+    state.scanned = state.scanned && count > 0
+
+    return state
   }
 
   getFormattedValue(path) {
