@@ -18,7 +18,7 @@ export class Input extends React.Component {
   }
 
   render() {
-    const { path, handler, tag, type } = this.props
+    const { path, handler, tag, type, onChange } = this.props
 
     const Component = tag || 'input'
 
@@ -28,11 +28,17 @@ export class Input extends React.Component {
 
     if(['checkbox', 'radio'].includes(type)) {
       inputProps.checked = !!value
-      inputProps.onChange = e => handler.update(path, e.target.checked)
+      inputProps.onChange = e => {
+        onChange(e)
+        handler.update(path, e.target.checked)
+      }
     }
     else {
       inputProps.value = value || ""
-      inputProps.onChange = e => handler.update(path, e.target.value)
+      inputProps.onChange = e => {
+        onChange(e)
+        handler.update(path, e.target.value)
+      }
     }
 
     return (

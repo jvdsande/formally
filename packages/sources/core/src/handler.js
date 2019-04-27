@@ -107,7 +107,7 @@ export class Handler {
     state.touched = true
     state.modified = false
 
-    this.onUpdate(toJS(this.values), this.computed, this.formatted)
+    this.onUpdate(toJS(this.values), this)
   }
 
   @action.bound update(path, value) {
@@ -119,7 +119,7 @@ export class Handler {
 
     parent[final] = value
 
-    this.onUpdate(toJS(this.values), this.computed, this.formatted)
+    this.onUpdate(toJS(this.values), this)
   }
 
   getValuesAndPath(_values, _state, _definition) {

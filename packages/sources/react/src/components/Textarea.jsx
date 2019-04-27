@@ -18,7 +18,7 @@ export class Textarea extends React.Component {
   }
 
   render() {
-    const { path, handler, tag } = this.props
+    const { path, handler, tag, onChange } = this.props
 
     const Component = tag || 'textarea'
 
@@ -27,7 +27,10 @@ export class Textarea extends React.Component {
     const inputProps = {}
 
     inputProps.value = value || ""
-    inputProps.onChange = e => handler.update(path, e.target.value)
+    inputProps.onChange = e => {
+      onChange(e)
+      handler.update(path, e.target.value)
+    }
 
     return (
       <Component
