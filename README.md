@@ -12,7 +12,6 @@ You can install form*ally* simply by running
 
 From there, you can start creating your first form.
 
-<br></br >
 
 #### 1. The `Form` Component
 
