@@ -59,6 +59,8 @@ class MyLoginForm extends React.Component {
       >
         <Input path="email" placeholder="Email address" />
         <Input path="password" type="password" />
+        
+        <button type="submit">Login</button>
       </Form>
     )
   }
