@@ -1,5 +1,8 @@
 {
   "name": "@formally/core",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.1",
   "description": "Simplified Form handler for React",
   "main": "index.js",
