@@ -68,7 +68,63 @@ class MyLoginForm extends React.Component {
 ```
 
 ## Adding validation
-W.I.P.
+form*ally* provides a built-in validation handling. It follows the classic form validation system, and exposes for each 
+field a usage state (pristine/dirty and touched/untouched) and provides a way to implement custom validation rules passed 
+to the form instance.
+
+#### 1. Passing custom validation rules
+In order to add custom validation rules, you need to pass a `definition` object through the `handler` prop of the `Form` element.
+
+This `definition` object must follow the shape of your form instance, but does not need to implement all the fields.
+
+Each field is defined by an object containing two optional properties: `format`, which is a function allowing you to visually
+modify the value before printing, and `validation`, an object used as a map of `validation rule -> validation function`. 
+You can also use the special `required: true` rule which checks for input.
+For instance, the following would
+make sure that all passwords are at least 4 characters long, and are required:
+
+```javascript 1.8
+definition={{
+ "password": {
+   validation: {
+     required: true,
+     invalid: (v) => !v || v.length < 4  // A password is invalid if not provided, or less than 4 characters long
+   }
+ } 
+}}
+```
+
+#### 2. Validation messages
+Once the validation rules are in place, form*ally* provides an easy way to display a warning to the user: the `Message` component.
+The `Message` components take a `path` and a `rule`, and only displays its children if the given rule is `true` for the path.
+
+Here are the props for the `Message` Component.
+
+- **`path`** : field to validate
+- **`rule`** : custom rule to check
+- **`display`** : state of the field needed for display. Can be `always`, `touched` and `dirty`. Defaults to `touched`.
+- **`blurred`** : if true, only display the message when the field is blurred. 
+
+Example:
+```javascript 1.8
+<Message path="password" rule="required">Password required</Message>
+<Message path="password" rule="invalid" display="dirty" blurred>Invalid password: must be at least 4 characters</Message>
+```
+
+#### 3. Multiple rules, single message
+Sometimes multiple rules can be broken at the same time. In our example, the `required` and `invalid` rules can both be triggered if no password is provided.
+
+If we were to create a `Message` Component for both rules, both messages would be displayed to the user, which can be confusing.
+
+form*ally* provides a `SwitchMessages` Component that can be used to wrap multiple messages, and will only ever display
+one at a time: the first `Message` with a triggered rule.
+
+```javascript 1.8
+<SwitchMessages>
+    <Message path="password" rule="required">Password required</Message>
+    <Message path="password" rule="invalid" display="dirty" blurred>Invalid password: must be at least 4 characters</Message>
+</SwitchMessages>
+```
 
 ## Styling
 W.I.P.
