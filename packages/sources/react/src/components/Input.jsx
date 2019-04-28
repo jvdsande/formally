@@ -5,6 +5,10 @@ import className from 'classnames'
 @inject(({ formallyHandler }) => ({ handler: formallyHandler }))
 @observer
 export class Input extends React.Component {
+  static defaultProps = {
+    onChange: () => {}
+  }
+
   componentDidMount() {
     const { path, handler } = this.props
     handler.initialize(path)
