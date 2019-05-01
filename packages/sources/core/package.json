@@ -32,5 +32,8 @@
     "Validation"
   ],
   "author": "Jérémie van der Sande <jeremie.vandersande@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "peerDependencies": {
+    "mobx": "^5.9.4"
+  }
 }

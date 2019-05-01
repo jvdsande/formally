@@ -5,6 +5,11 @@ import { Handler } from '@formally/core'
 import className from 'classnames'
 
 export class Form extends React.Component {
+  static defaultProps = {
+    onSubmit: () => {},
+    onUpdate: () => {},
+  }
+
   constructor(props) {
     super(props)
 

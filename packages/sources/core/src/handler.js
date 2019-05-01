@@ -1,4 +1,4 @@
-import {observable, action, computed, toJS} from 'mobx'
+import { observable, action, computed, toJS } from 'mobx'
 
 class Path {
   constructor(obj) {
@@ -39,9 +39,9 @@ export class Handler {
 
   @observable state = {}
 
-  constructor({ values, definition } = { values: {}, definition: {} }) {
-    this.values = values
-    this.definition = definition
+  constructor({ values, definition } = {}) {
+    this.values = values || {}
+    this.definition = definition || {}
   }
 
   onUpdate = () => {}

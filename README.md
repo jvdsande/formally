@@ -10,6 +10,13 @@ You can install form*ally* simply by running
 
 **```npm install @formally/react```**
 
+Form*ally* is built on MobX, so you need to install it as well. If you are not using MobX already, run the following command:
+
+**```npm install mobx mobx-react```**
+
+*Note:* You don't have to use MobX as your state management in order to use Form*ally*, but you have to install it
+nonetheless as it is defined as a peer dependency.
+
 From there, you can start creating your first form.
 
 
