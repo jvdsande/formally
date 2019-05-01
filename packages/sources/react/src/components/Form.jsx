@@ -18,7 +18,7 @@ export class Form extends React.Component {
   }
 
   onSubmit = (e) => {
-    this.props.onSubmit(e, toJS(this.handler.values, this.handler))
+    this.props.onSubmit(e, toJS(this.handler.values), this.handler)
   }
 
   render() {
