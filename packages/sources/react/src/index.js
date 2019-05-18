@@ -8,6 +8,8 @@ export { Textarea } from './components/Textarea'
 export { Select } from './components/Select'
 export { Option } from './components/Option'
 
+export { Value } from './components/Value'
+
 export { Message, SwitchMessages } from './components/Message'
 
 export function withTag(Component, Tag) {

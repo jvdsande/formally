@@ -149,15 +149,17 @@ export class Handler {
     findPaths(_state, "")
 
     const copyObject = (dest, orig) => {
-      Object.keys(orig)
-        .forEach(k => {
-          dest[k] = orig[k]
+      if(orig) {
+        Object.keys(orig)
+          .forEach(k => {
+            dest[k] = orig[k]
 
-          if(typeof orig[k] === 'object') {
-            dest[k] = {}
-            copyObject(dest[k], orig[k])
-          }
-        })
+            if (typeof orig[k] === 'object' && !!orig[k]) {
+              dest[k] = {}
+              copyObject(dest[k], orig[k])
+            }
+          })
+      }
     }
 
     // Go through values
