@@ -138,14 +138,14 @@ export class Handler {
     const state = this.getStateFromPath(path)
     state.focused = true;
 
-    this.onFocus(path);
+    this.onFocus(toJS(this.values), this, path);
   }
 
   @action.bound blur(path) {
     const state = this.getStateFromPath(path)
     state.focused = false;
 
-    this.onBlur(path);
+    this.onBlur(toJS(this.values), this, path);
   }
 
   getValuesAndPath(_values, _state, _definition) {
