@@ -8,6 +8,8 @@ export class Form extends React.Component {
   static defaultProps = {
     onSubmit: () => {},
     onUpdate: () => {},
+    onBlur: () => {},
+    onFocus: () => {},
   }
 
   constructor(props) {
@@ -15,6 +17,8 @@ export class Form extends React.Component {
 
     this.handler = new Handler(props.handler)
     this.handler.onUpdate = props.onUpdate
+    this.handler.onBlur = props.onBlur
+    this.handler.onFocus = props.onFocus
   }
 
   onSubmit = (e) => {

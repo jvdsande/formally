@@ -22,7 +22,7 @@ export class Textarea extends React.Component {
   }
 
   render() {
-    const { path, handler, tag, onChange } = this.props
+    const { path, handler, tag, onChange, ...props } = this.props
 
     const Component = tag || 'textarea'
 
@@ -38,10 +38,14 @@ export class Textarea extends React.Component {
 
     return (
       <Component
-        {...this.props}
+        {...props}
         {...inputProps}
         className={className(this.props.className, state.pure, handler.getComputedValue(path).__error)}
-        onBlur={() => handler.touch(path)}
+        onBlur={() => {
+          handler.blur(path)
+          handler.touch(path)
+        }}
+        onFocus={() => handler.focus(path)}
       />
     )
   }

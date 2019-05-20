@@ -13,12 +13,18 @@ class Path {
 
   @observable modified = false
 
+  @observable focused = false
+
   @computed get dirty() {
     return !this.pristine
   }
 
   @computed get untouched() {
     return !this.touched
+  }
+
+  @computed get blurred() {
+    return !this.focused
   }
 
   @computed get pure() {
@@ -28,6 +34,8 @@ class Path {
       touched: this.touched,
       untouched: this.untouched,
       modified: this.modified,
+      focused: this.focused,
+      blurred: this.blurred,
     }
   }
 }
@@ -45,6 +53,10 @@ export class Handler {
   }
 
   onUpdate = () => {}
+
+  onFocus = () => {}
+
+  onBlur = () => {}
 
   // Path helpers
   getObjectFromPath(path, root, init) {
@@ -107,7 +119,7 @@ export class Handler {
     state.touched = true
     state.modified = false
 
-    this.onUpdate(toJS(this.values), this)
+    this.onUpdate(toJS(this.values), this, path)
   }
 
   @action.bound update(path, value) {
@@ -119,7 +131,21 @@ export class Handler {
 
     parent[final] = value
 
-    this.onUpdate(toJS(this.values), this)
+    this.onUpdate(toJS(this.values), this, path)
+  }
+
+  @action.bound focus(path) {
+    const state = this.getStateFromPath(path)
+    state.focused = true;
+
+    this.onFocus(path);
+  }
+
+  @action.bound blur(path) {
+    const state = this.getStateFromPath(path)
+    state.focused = false;
+
+    this.onBlur(path);
   }
 
   getValuesAndPath(_values, _state, _definition) {

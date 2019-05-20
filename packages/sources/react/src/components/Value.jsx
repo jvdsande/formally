@@ -22,7 +22,7 @@ export class Value extends React.Component {
   }
 
   render() {
-    const { path, handler, tag } = this.props
+    const { path, handler, tag, children, ...props } = this.props
 
     const Component = tag || 'span'
 
@@ -31,10 +31,10 @@ export class Value extends React.Component {
 
     return (
       <Component
-        {...this.props}
+        {...props}
         className={className(this.props.className, state.pure, handler.getComputedValue(path).__error)}
       >
-        {value}
+        { (children && (children instanceof Function)) ? children(value) : value }
       </Component>
     )
   }

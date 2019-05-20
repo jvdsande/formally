@@ -22,7 +22,7 @@ export class Input extends React.Component {
   }
 
   render() {
-    const { path, handler, tag, type, onChange } = this.props
+    const { path, handler, tag, type, onChange, ...props } = this.props
 
     const Component = tag || 'input'
 
@@ -47,10 +47,14 @@ export class Input extends React.Component {
 
     return (
       <Component
-        {...this.props}
+        {...props}
         {...inputProps}
         className={className(this.props.className, state.pure, handler.getComputedValue(path).__error)}
-        onBlur={() => handler.touch(path)}
+        onBlur={() => {
+          handler.blur(path)
+          handler.touch(path)
+        }}
+        onFocus={() => handler.focus(path)}
       />
     )
   }
