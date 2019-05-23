@@ -28,7 +28,9 @@ export class Input extends React.Component {
 
     const value = handler.getFormattedValue(path, handler.values, handler.formatted)
     const state = handler.getStateFromPath(path) || {}
-    const inputProps = {}
+    const inputProps = {
+      type
+    }
 
     if(['checkbox', 'radio'].includes(type)) {
       inputProps.checked = !!value
