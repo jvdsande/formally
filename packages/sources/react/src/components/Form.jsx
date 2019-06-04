@@ -10,6 +10,7 @@ export class Form extends React.Component {
     onUpdate: () => {},
     onBlur: () => {},
     onFocus: () => {},
+    tag: "form",
   }
 
   constructor(props) {
@@ -26,16 +27,19 @@ export class Form extends React.Component {
   }
 
   render() {
-    const { onUpdate, onSubmit, onBlur, onFocus, children, ...props } = this.props
+    const { onUpdate, onSubmit, onBlur, onFocus, children, tag, ...props } = this.props
+
+    const Component = tag
+
     return (
       <Provider formallyHandler={this.handler}>
-        <form
+        <Component
           {...props}
           className={className(props.className, { invalid: !this.handler.isValid, valid: this.handler.isValid }, this.handler.formState)}
           onSubmit={this.onSubmit}
         >
           {children}
-        </form>
+        </Component>
       </Provider>
     )
   }
